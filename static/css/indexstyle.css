@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+	background: url(back.jpg)
+	no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+html,body{
+  display: grid;
+  height: 100%;
+  place-items: center;
+  text-align: center;
+}
+.container{
+  height: 350px;
+  width: 430px;
+  position: relative;
+}
+.container .wrapper{
+  position: relative;
+  height: 300px;
+  width: 100%;
+  border-radius: 10px;
+  background: #fff;
+  border: 2px dashed #c2cdda;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.wrapper.active{
+  border: none;
+}
+.wrapper .image{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.wrapper .icon{
+  font-size: 100px;
+  color: #9658fe;
+}
+.wrapper .text{
+  font-size: 20px;
+  font-weight: 500;
+  color: #5B5B7B;
+}
+.wrapper #cancel-btn i{
+  position: absolute;
+  font-size: 20px;
+  right: 15px;
+  top: 15px;
+  color: #9658fe;
+  cursor: pointer;
+  display: none;
+}
+.wrapper.active:hover #cancel-btn i{
+  display: block;
+}
+.wrapper #cancel-btn i:hover{
+  color: #e74c3c;
+}
+.wrapper .file-name{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 18px;
+  color: #fff;
+  display: none;
+  background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+}
+.wrapper.active:hover .file-name{
+  display: block;
+}
+.container #custom-btn{
+  margin-top: 30px;
+  display: block;
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+}
+.patient #patient-btn{
+  
+  margin-top: 30px;
+  display: block;
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+}
+
+
+.patient{
+  background-color: black;
+	text-align: center;
+	width:500px;
+	border:15px solid teal;
+	padding:50px;
+	margin:0 auto;
+}
+h3{
+  color: white;
+}
+label{
+  color: white;
+}
+.contain{
+	width: 100%;
+	margin: 0auto;
+}
+header{
+	background: black;
+	border:5px solid teal;
+	margin:0 auto;
+	opacity: 90%;
+
+
+}
+header::after{
+	 content:'' ;
+	 display: table;
+	 clear: both;
+}
+.logo{
+	float:left;
+	padding:10px 0;
+}
+
+ nav{
+ 	float:right;
+ }
+
+ nav ul{
+
+ 	margin:0;
+ 	padding:0;
+ 	list-style: none;
+ }
+ nav li{
+ 	display: inline-block;
+ 	margin-left:70px;
+ 	padding-top:40px;
+ 	position: relative;
+ }
+
+nav a:visited{
+	color:white;
+}
+nav a{
+color:rgb(24, 165, 190);
+text-decoration: none;
+text-transform: uppercase;
+}
+
+ nav a:hover{
+ 	color:orange;
+ }
+
+ nav a:before{
+ 	content: '';
+ 	display:block;
+ 	height: 5px;
+ 	background-color: rgb(24, 165, 190);
+
+    position:absolute;
+ 	top:0;
+ 	width:0%;
+ 	transition: all ease-in-out 250ms;
+
+ }
+ nav a:hover::before{
+ 	width:100%;
+ }
