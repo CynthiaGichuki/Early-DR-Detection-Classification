@@ -7,9 +7,14 @@ from wtforms import StringField, PasswordField, SubmitField, DateField, FloatFie
 from wtforms.validators import InputRequired, Length, ValidationError
 import os
 from flask_bcrypt import Bcrypt
+import sqlite3
+import pickle
 
+model=pickle.load(open('model.pkl','rb'))
 
 file_path = os.path.abspath(os.getcwd())+"\database.db"
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisasecretkey'
@@ -49,14 +54,14 @@ class Patient(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     firstname= db.Column(db.String(20), nullable=False)
     lastname = db.Column(db.String(20), nullable=False)
-    dob= db.Column(db.String(20), nullable=False)
+    age= db.Column(db.Float(20), nullable=False)
     weight = db.Column(db.Float(20), nullable=False)
     height= db.Column(db.Float(20), nullable=False)
 
 class RegisterForm(FlaskForm):
-    firstname = StringField(validators=[InputRequired(), Length(min=4, max=20)])
-    secondname = StringField(validators=[InputRequired(), Length(min=4, max=20)])
-    email = StringField('email', validators=[InputRequired(), Length(min=4, max=20)])
+    firstname = StringField(validators=[InputRequired(), Length(min=2, max=20)])
+    secondname = StringField(validators=[InputRequired(), Length(min=2, max=20)])
+    email = StringField('email', validators=[InputRequired(), Length(min=4, max=50)])
     phonenumber = StringField('Phone', validators=[InputRequired(), Length(min=4, max=20)])
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)])
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)])
@@ -79,13 +84,12 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class PatientForm(FlaskForm):
-    firstname = StringField(validators=[InputRequired(), Length(min=4, max=20)])
+    firstname = StringField(validators=[InputRequired(), Length(min=2, max=20)])
+    lastname = StringField(validators=[InputRequired(), Length(min=2, max=20)])
+    age = StringField(validators=[InputRequired(), Length(min=1, max=20)])
+    weight = StringField( validators=[InputRequired(), Length(min=1, max=20)])
+    height = StringField( validators=[InputRequired(), Length(min=1, max=20)])
 
-    lastname = StringField(validators=[InputRequired(), Length(min=8, max=20)])
-
-    dob = DateField('Date', validators=[InputRequired(), Length(min=4, max=20)])
-    weight = FloatField('Number', validators=[InputRequired(), Length(min=1, max=20)])
-    height = FloatField('Number', validators=[InputRequired(), Length(min=1, max=20)])
     
     submit = SubmitField("SUBMIT")
 
@@ -102,7 +106,11 @@ def login():
             if bcrypt.check_password_hash(user.password, form.password.data):
                 flash("You have been logged in successfully")
                 login_user(user)
-                return redirect(url_for('index'))
+                if current_user.username == 'gichuki_cynthia':
+                    return redirect(url_for('admin'))
+                else:
+                    return redirect(url_for('index'))
+            
             else:
                 flash("User does not Exist")
 
@@ -114,16 +122,66 @@ def register():
 
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        new_user = User(firstname=form.firstname.data, secondname=form.secondname.data, email=form.email.data, phonenumber=form.phonenumber.data, username=form.username.data, password=hashed_password)
+        new_user = User(firstname=form.firstname.data, lastname=form.secondname.data, email=form.email.data, phonenumber=form.phonenumber.data, username=form.username.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
     return render_template("register.html", form=form)
 
+
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = PatientForm()
+
+    if form.validate_on_submit():
+        new_patient = Patient(firstname=form.firstname.data, lastname=form.lastname.data, age=form.age.data, weight=form.weight.data, height=form.height.data)
+        db.session.add(new_patient)
+        db.session.commit()
+        return redirect(url_for('login'))
+    
+    prediction = model.predict_proba
+    
     return render_template("index.html", form=form)
+
+
+
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+#@login_required
+def admin():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        new_user = User(firstname=form.firstname.data, lastname=form.secondname.data, email=form.email.data, phonenumber=form.phonenumber.data, username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash("User added Successfully")
+
+    connection = sqlite3.connect("database.db")
+    connection.row_factory=sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("SELECT * from patient")
+    patient = cursor.fetchall()
+    connection.close()
+
+    connection = sqlite3.connect("database.db")
+    connection.row_factory=sqlite3.Row
+    cursor = connection.cursor()
+    cursor.execute("SELECT * from user")
+    user = cursor.fetchall()
+    connection.close()
+
+
+    return render_template("admin.html", patient=patient, user=user, form=form)
+
+    
+   
+    #if current_user.username == 'gichuki_cynthia':
+    #    return redirect(url_for('admin'))
+    
+
+
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required

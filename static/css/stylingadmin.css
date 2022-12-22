@@ -1,0 +1,44 @@
+.th, tr{
+    
+    border: 1px solid;
+    
+    width:100%;
+	border:15px solid teal;
+	padding:50px;
+	margin-left: auto;
+    margin-right: auto;
+
+}
+.thead{
+    border: 1p solid;
+}
+.table{
+    margin-top: 5%;
+    margin-left: 25%;
+}
+
+.add-user{
+    background-color: black;
+	text-align: center;
+    
+	width:600px;
+	border:15px solid teal;
+	padding:50px;
+	margin:0 auto;
+	
+}
+
+.piechart {
+    margin-top: 5%;
+    margin-left:30%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background-image: conic-gradient(
+    black 240deg, 
+    rgb(47, 85, 97) 120deg);
+}
+
+.user-table{
+    margin-left: 15%;
+}

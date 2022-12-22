@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/spur.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylingadmin.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="../js/chart-js-config.js"></script>
+    <title>DR DETECTION Admin Panel</title>
+</head>
+
+<body>
+    <div class="dash">
+        <div class="dash-nav dash-nav-dark">
+            <header>
+                
+                <a href="{{ url_for('admin') }}" class="spur-logo"><i class="fas fa-bolt"></i> <span>ADMIN PANEL</span></a>
+            </header>
+            <nav class="dash-nav-list">
+                <a href="{{ url_for('admin') }}" class="dash-nav-item">
+                    <i class="fas fa-home"></i> Dashboard </a>
+                <div class="dash-nav-dropdown">
+                    
+
+                    <a href="#anchor-name" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-chart-bar"></i> Add User</a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="chartjs.html" class="dash-nav-dropdown-item">Chart.js</a>
+                    </div>
+                </div>
+                <div class="dash-nav-dropdown ">
+                    <a href="#disable-user" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-cube"></i> DISABLE USER </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="cards.html" class="dash-nav-dropdown-item">Cards</a>
+                        <a href="forms.html" class="dash-nav-dropdown-item">Forms</a>
+                        <div class="dash-nav-dropdown ">
+                            <a href="#" class="dash-nav-dropdown-item dash-nav-dropdown-toggle">Icons</a>
+                            <div class="dash-nav-dropdown-menu">
+                                <a href="icons.html" class="dash-nav-dropdown-item">Solid Icons</a>
+                                <a href="icons.html#regular-icons" class="dash-nav-dropdown-item">Regular Icons</a>
+                                <a href="icons.html#brand-icons" class="dash-nav-dropdown-item">Brand Icons</a>
+                            </div>
+                        </div>
+                        <a href="stats.html" class="dash-nav-dropdown-item">Stats</a>
+                        <a href="tables.html" class="dash-nav-dropdown-item">Tables</a>
+                        <a href="typography.html" class="dash-nav-dropdown-item">Typography</a>
+                        <a href="userinterface.html" class="dash-nav-dropdown-item">User Interface</a>
+                    </div>
+                </div>
+                <div class="dash-nav-dropdown">
+                    <a href="#piechart" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-file"></i> VIEW DATA </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="blank.html" class="dash-nav-dropdown-item">Blank</a>
+                        <a href="content.html" class="dash-nav-dropdown-item">Content</a>
+                        <a href="{{ url_for('login') }}" class="dash-nav-dropdown-item">Log in</a>
+                        <a href="{{ url_for('index') }}" class="dash-nav-dropdown-item">Sign up</a>
+                    </div>
+                </div>
+                <div class="dash-nav-dropdown">
+                    <a href="{{ url_for('about') }}" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-info"></i> About </a>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="https://github.com/HackerThemes/spur-template" target="_blank" class="dash-nav-dropdown-item">GitHub</a>
+                        <a href="http://hackerthemes.com" target="_blank" class="dash-nav-dropdown-item">HackerThemes</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="dash-app">
+            
+                <div class="contain">
+                    
+                    <nav>
+                      <ul>
+                        <li><h5 class="title"><span style="color:white">DIABETIC RETINOPATHY </span> <span style="color:rgb(24, 165, 190)"> DETECTION</span></h5></li>
+                        <li><a href="{{ url_for('index') }}" >HOME</a></li>
+                        <li><a href="https://www.who.int/europe/activities/promoting-diabetic-retinopathy-screening/">NEWS</a></li>
+                        <li><a href="{{ url_for('register') }}">REGISTER/LOGIN</a> </li>
+                        <li><a href="{{ url_for('logout') }}">LOG OUT</a> </li>
+                      </ul>
+                    </nav>
+                </div>
+
+
+                <div class="tables">
+                    
+                        <h3>CURRENT PATIENT DATA:</h3>
+                        
+                        
+                        <div class="table">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Weight</th>
+                                    <th>Height</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for res in patient %}
+                                  <tr>
+                                    <td>{{res["firstname"]}}</td>
+                                    <td>{{res["lastname"]}}</td>
+                                    <td>{{res["age"]}}</td>
+                                    <td>{{res["weight"]}}</td>
+                                    <td>{{res["height"]}}</td>
+                                  </tr>
+                                  {% endfor %}
+
+                            </tbody>
+
+                        </table>
+                        </div>
+
+                    
+                        {{ form.hidden_tag() }}
+    <br>
+    <br>
+
+  <h3 id="anchor-name">ADD USER BELOW:</h3>
+
+  <div class="add-user">
+
+  
+    <label for="firstname">First name:</label>
+    {{ form.firstname }}
+    <br>
+    <br>
+    
+
+    <label for="secondname">Second name:</label>
+    {{ form.secondname }}
+    <br>
+    <br>
+  
+    <label for="email">Email:</label>
+    {{ form.email }}
+    <br>
+    <br>
+
+    <label for="phonenumber">PhoneNumber:</label>
+    {{ form.phonenumber }}
+    <br>
+    <br>
+
+    <label for="username">Username:</label>
+    {{ form.username }}
+    <br>
+    <br>
+
+    <label for="password">Password:</label>
+    {{ form.password }}
+    <br>
+    <br>
+    {{ form.submit }}
+
+    </div>
+    <br><br>
+    <br>
+
+    <h3 id="disable-user">CURRENT REGISTERED USERS DATA:</h3>
+    <h5><i>Disable User Below</i></h5>
+                        
+                        <div class="user-table">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Second Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Username</th>
+                                    
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for res in user %}
+                                  <tr>
+                                    <td>{{res["firstname"]}}</td>
+                                    <td>{{res["secondname"]}}</td>
+                                    <td>{{res["email"]}}</td>
+                                    <td>{{res["phonenumber"]}}</td>
+                                    <td>{{res["username"]}}</td>
+                                    <td><button>DISABLE</button></td>
+                                  </tr>
+                                  {% endfor %}
+
+                            </tbody>
+
+                        </table>
+                        </div>
+<br><br>
+    <h3 id="piechart">Pie Chart:</h3>
+    <h5>Male vs Female Registered Patients</h5>
+                <div class="piechart"></div>
+
+                    
+                </div>  
+                
+                
+                        <!--
+                        <table>
+                            <tr>
+                              <th>firstname</th>
+                              <th>secondname</th>
+                              <th>email</th>
+                              <th>phonenumber</th>
+                              <th>username</th>
+                              <th>password</th>
+                            </tr>
+                            <tr>
+                              <td>Alfreds Futterkiste</td>
+                              <td>Maria Anders</td>
+                              <td>Germany</td>
+                            </tr>
+                            <tr>
+                              <td>Centro comercial Moctezuma</td>
+                              <td>Francisco Chang</td>
+                              <td>Mexico</td>
+                            </tr>
+                          </table>
+                          <br><br>
+    
+                    </div>
+                    <div class="disableuser">
+                        <p>DISABLE USER:</p>
+                        <table>
+                            <tr>
+                              <th>firstname</th>
+                              <th>secondname</th>
+                              <th>email</th>
+                              <th>phonenumber</th>
+                              <th>username</th>
+                              <th>password</th>
+                            </tr>
+                            <tr>
+                              <td>Alfreds Futterkiste</td>
+                              <td>Maria Anders</td>
+                              <td>Germany</td>
+                            </tr>
+                            <tr>
+                              <td>Centro comercial Moctezuma</td>
+                              <td>Francisco Chang</td>
+                              <td>Mexico</td>
+                            </tr>
+                          </table>
+                          <br><br>
+    
+                    </div>
+                    <div class="enablerole">
+                        <table border="3">
+                            <thead>
+                            <tr>ADD USER</tr>
+                            
+                            </thead>
+                            <tbody>
+                            <tr>
+                            <td contenteditable='true'>firstname</td>
+                            <td contenteditable='true'>secondname</td>
+                            <td contenteditable='true'>firstname</td>
+                            <td contenteditable='true'>secondname</td>
+                            <td contenteditable='true'>firstname</td>
+                            <td contenteditable='true'>secondname</td>
+                            </tr>
+                            <tr>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                            <td contenteditable='true'></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            
+                    </div>
+                    
+                </div>
+            -->
+                
+            <!--
+            <main class="dash-content">
+                <div class="container-fluid">
+                    <div class="row dash-row">
+                        <div class="col-xl-4">
+                            <div class="stats stats-primary">
+                                <h3 class="stats-title"> Patients </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">114</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+25%</span>
+                                            <span class="stats-timeframe">from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="stats stats-success ">
+                                <h3 class="stats-title"> Revenue </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-cart-arrow-down"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">$25,541</div>
+                                        <div class="stats-change">
+                                            <span class="stats-percentage">+17.5%</span>
+                                            <span class="stats-timeframe">from last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="stats stats-danger">
+                                <h3 class="stats-title"> Open tickets </h3>
+                                <div class="stats-content">
+                                    <div class="stats-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="stats-data">
+                                        <div class="stats-number">5</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Bar Chart </div>
+                                    <div class="spur-card-menu">
+                                        <div class="dropdown show">
+                                            <a class="spur-card-menu-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body spur-card-body-chart">
+                                    <canvas id="spurChartjsBar"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("spurChartjsBar").getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                                                datasets: [{
+                                                    label: 'Blue',
+                                                    data: [12, 19, 3, 5, 2],
+                                                    backgroundColor: window.chartColors.primary,
+                                                    borderColor: 'transparent'
+                                                }]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    display: false
+                                                },
+                                                scales: {
+                                                    yAxes: [{
+                                                        ticks: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }]
+                                                }
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card spur-card">
+                                <div class="card-header">
+                                    <div class="spur-card-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="spur-card-title"> Notifications </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="notifications">
+                                        <a href="#!" class="notification">
+                                            <div class="notification-icon">
+                                                <i class="fas fa-inbox"></i>
+                                            </div>
+                                            <div class="notification-text">New comment</div>
+                                            <span class="notification-time">21 days ago</span>
+                                        </a>
+                                        <a href="#!" class="notification">
+                                            <div class="notification-icon">
+                                                <i class="fas fa-inbox"></i>
+                                            </div>
+                                            <div class="notification-text">New comment</div>
+                                            <span class="notification-time">21 days ago</span>
+                                        </a>
+                                        <a href="#!" class="notification">
+                                            <div class="notification-icon">
+                                                <i class="fas fa-inbox"></i>
+                                            </div>
+                                            <div class="notification-text">New comment</div>
+                                            <span class="notification-time">21 days ago</span>
+                                        </a>
+                                        <div class="notifications-show-all">
+                                            <a href="#!">Show all</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="../js/spur.js"></script>
+</body>
+
+</html>
