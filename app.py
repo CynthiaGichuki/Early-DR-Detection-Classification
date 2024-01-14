@@ -10,7 +10,7 @@ from flask_bcrypt import Bcrypt
 import sqlite3
 import pickle
 
-model=pickle.load(open('model.pkl','rb'))
+# model=pickle.load(open('model.pkl','rb'))
 
 file_path = os.path.abspath(os.getcwd())+"\database.db"
 
